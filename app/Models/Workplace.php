@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
 
-class WorkPlace extends Model
+class Workplace extends Model
 {
     use SoftDeletes;
 
