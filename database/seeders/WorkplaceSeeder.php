@@ -14,7 +14,6 @@ class WorkplaceSeeder extends Seeder
      */
     public function run()
     {
-        $i = 1;
         $Workplaces = [
             "絆",
             "中川",
