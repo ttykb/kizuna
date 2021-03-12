@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class WorkTypeSeeder extends Seeder
+class WorktypeSeeder extends Seeder
 {
     /**
      * Run the database seeds.
