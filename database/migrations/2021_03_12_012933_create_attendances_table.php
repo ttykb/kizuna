@@ -21,6 +21,7 @@ class CreateAttendancesTable extends Migration
             $table->boolean('is_pickup')->comment('送迎')->nullable();
             $table->time('overtime', $precision = 0)->comment('残業時間')->nullable();
             $table->boolean('is_daily_report')->comment('日報')->nullable();
+            $table->string('note')->comment('備考')->nullable();
             $table->timestamps();
             $table->softDeletes($column = 'deleted_at', $precision = 0);
 
