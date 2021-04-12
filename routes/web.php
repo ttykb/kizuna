@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\SummaryController;
 use App\Http\Controllers\ConfigController;
 
 /*
@@ -20,10 +21,15 @@ use App\Http\Controllers\ConfigController;
 //     return view('welcome');
 // });
 
-Route::get('/', [AttendanceController::class, 'index']);
-Route::post('/', [AttendanceController::class, 'index']);
-Route::post('/edit', [AttendanceController::class, 'edit']);
-Route::get('/config', [ConfigController::class, 'index']);
-Route::post('/config', [ConfigController::class, 'show']);
-Route::get('/config/edit', function() {return redirect('/config');});
-Route::post('/config/edit', [ConfigController::class, 'edit']);
+Route::get('/', [AttendanceController::class, 'index'])->name('.');
+Route::post('/', [AttendanceController::class, 'index'])->name('.');
+Route::post('/edit', [AttendanceController::class, 'edit'])->name('edit');
+Route::get('/summary/employee', [SummaryController::class, 'index'])->name('summary.employee');
+Route::post('/summary/employee', [SummaryController::class, 'index'])->name('summary.employee');
+Route::get('/summary/daily', [SummaryController::class, 'index'])->name('summary.daily');
+Route::post('/summary/daily', [SummaryController::class, 'index'])->name('summary.daily');
+Route::get('/summary', function() {return redirect('/summary/employee');})->name('summary');
+Route::get('/config', [ConfigController::class, 'index'])->name('config');
+Route::post('/config', [ConfigController::class, 'show'])->name('config');
+Route::get('/config/edit', function() {return redirect('/config');})->name('config.edit');
+Route::post('/config/edit', [ConfigController::class, 'edit'])->name('config.edit');

@@ -22,8 +22,32 @@ class Attendance extends Model
         return $this->belongsTo(Workplace::class);
     }
 
+    public function scopeSelectBaseDate($query) {
+        return $query->addSelect('base_date');
+    }
+
     public function scopeSelectEmployeeId($query) {
-        return $query->select('employee_id');
+        return $query->addSelect('employee_id');
+    }
+
+    public function scopeSelectWorkplaceId($query) {
+        return $query->addSelect('workplace_id');
+    }
+
+    public function scopeCountWorkplaceId($query) {
+        return $query->count('workplace_id');
+    }
+
+    public function scopeCountIsPickup($query) {
+        return $query->count('is_pickup');
+    }
+
+    public function scopeCountIsDailyReport($query) {
+        return $query->count('is_daily_report');
+    }
+
+    public function scopeSumOvertime($query) {
+        return $query->sum('overtime');
     }
 
     public function scopeIdAt($query, $id) {
@@ -55,8 +79,16 @@ class Attendance extends Model
         return $query->where('is_daily_report', true);
     }
 
+    public function ScopeGroupBaseDate($query) {
+        return $query->groupBy('base_date');
+    }
+
     public function ScopeGroupEmployeeId($query) {
         return $query->groupBy('employee_id');
+    }
+
+    public function ScopeGroupWorkplaceId($query) {
+        return $query->groupBy('workplace_id');
     }
 
     public function ScopeOrderBaseDateAsc($query) {

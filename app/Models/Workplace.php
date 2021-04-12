@@ -20,6 +20,16 @@ class Workplace extends Model
         return $arrayList;
     }
 
+    public static function WorkplaceList() {
+        $workplaces = Workplace::all();
+        $arrayList = array();
+        foreach ($workplaces as $workplace) {
+            $arrayList += array($workplace->id => $workplace->name);
+        }
+
+        return $arrayList;
+    }
+
     public function attendances() {
         return $this->hasMany(Attendances::class);
     }
