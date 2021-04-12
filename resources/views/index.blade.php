@@ -1,7 +1,7 @@
 <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
 <div class="container-xxxl">
-    <div class="row fixed01 background-color: #f8fafc">
+    <div class="row g-0 fixed01 background-color: #f8fafc">
         <div class="col-3">
             {{ Form::open(['url' => '/', 'files' => false, 'class' => 'm-0']) }}
             {{ Form::hidden('nowDate', $nowDate) }}
@@ -19,6 +19,7 @@
             <a href="javascript:attendance.submit()" class="btn btn-outline-danger">入力内容を保存する</a>
         </div>
         <div class="col text-end">
+            <a href="/summary/employee" class="btn btn-info">集計</a>
             <a href="config" class="btn btn-success">編集</a>
 
             {{ Form::open(['url' => '/', 'files' => false, 'name' => 'prev', 'style' => 'display:inline;']) }}

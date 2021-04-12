@@ -20,7 +20,6 @@ class Worktype extends Model
         return $arrayList;
     }
 
-
     public function attendances() {
         return $this->hasMany(Attendances::class);
     }

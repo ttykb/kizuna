@@ -76,10 +76,9 @@ class AttendanceController extends Controller
         $tempAttendances = Attendance::whereBetween('base_date', [$earlyWeek, $weekend])->OrderBaseDateAsc()->OrderEmployeeIdAsc()->get();
         $attendances = [];
         foreach ($employees as $employee) {
-            $parentArray = [];
             foreach ($tempAttendances as $tempAttendance) {
                 if ($tempAttendance->employee_id == $employee->id) {
-                    $childArray = array(
+                    $tempArray = array(
                         'id' => $tempAttendance->id,
                         'worktype' => $tempAttendance->worktype_id,
                         'workplace' => $tempAttendance->workplace_id,
@@ -89,8 +88,8 @@ class AttendanceController extends Controller
                         'is_daily_payment' => $tempAttendance->is_daily_payment,
                         'note' => $tempAttendance->note
                     );
-                    if ($childArray) {
-                        $attendances[$employee->id][$tempAttendance->base_date] = $childArray;
+                    if ($tempArray) {
+                        $attendances[$employee->id][$tempAttendance->base_date] = $tempArray;
                     }
                 }
             }
@@ -165,7 +164,7 @@ class AttendanceController extends Controller
                             $attendance->worktype_id = $subValue['worktype'];
                             $attendance->workplace_id = $subValue['workplace'];
                             $attendance->is_pickup = $subValue['is_pickup'];
-                            if(is_null($subValue['overtime'])) {
+                            if (is_null($subValue['overtime'])) {
                                 $attendance->overtime = null;
                             } else {
                                 $attendance->overtime = date('H:i:00', strtotime($subValue['overtime']));
@@ -191,7 +190,6 @@ class AttendanceController extends Controller
                 }
             }
         }
-        // return redirect('/');
     }
 
     /**
