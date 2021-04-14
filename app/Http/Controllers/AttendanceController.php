@@ -44,7 +44,10 @@ class AttendanceController extends Controller
         $endOfTheMonth = date('Y-m-d', strtotime($endOfTheMonth));
 
         // 週初め
-        $startDayOfTheWeek = date('w', strtotime($date));
+        // 日曜始まり
+        // $startDayOfTheWeek = date('N', strtotime($date));
+        // 月曜始まり
+        $startDayOfTheWeek = date('N', strtotime($date)) - 1;
         $earlyWeek = date('Y-m-d', strtotime("-$startDayOfTheWeek day", strtotime($date)));
         if (strtotime($earlyWeek) < strtotime($biginningOfTheMonth)) {
             $earlyWeek = $biginningOfTheMonth;
@@ -52,7 +55,10 @@ class AttendanceController extends Controller
             $earlyWeek = $earlyWeek;
         }
         // 週末
-        $endDayOfTheWeek = 6;
+        // 日曜始まり
+        // $endDayOfTheWeek = 6;
+        // 月曜始まり
+        $endDayOfTheWeek = 7;
         $endDayOfTheWeek = $endDayOfTheWeek - date('w', strtotime($earlyWeek));
         $weekend = date('Y-m-d', strtotime("+$endDayOfTheWeek day", strtotime($earlyWeek)));
         if (strtotime($weekend) > strtotime($endOfTheMonth)) {
