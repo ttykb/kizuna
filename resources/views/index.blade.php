@@ -1,49 +1,7 @@
-<link href="{{ asset('css/app.css') }}" rel="stylesheet">
-
-<div class="container-xxxl">
-    <div class="row g-0 fixed01 background-color: #f8fafc">
-        <div class="col-3">
-            {{ Form::open(['url' => '/', 'files' => false, 'class' => 'm-0']) }}
-            {{ Form::hidden('nowDate', $nowDate) }}
-            <div class="input-group">
-                {{ Form::select('viewY', App\Models\BaseDate::selectYearList($nowDate), $viewY, ['id' => 'viewY', 'class' => 'form-select']) }}
-                <label class="input-group-text" for="viewY">年</label>
-                {{ Form::select('viewM', App\Models\BaseDate::selectMonthList(), $viewM, ['id' => 'viewM', 'class' => 'form-select']) }}
-                <label class="input-group-text" for="viewM">月</label>
-                {{ Form::hidden('viewD', '01') }}
-                {{ Form::submit('表示', ['class' => 'submit btn btn-outline-secondary']) }}
-            </div>
-            {{ Form::close() }}
-        </div>
-        <div class="col text-center">
-            <a href="javascript:attendance.submit()" class="btn btn-outline-danger">入力内容を保存する</a>
-        </div>
-        <div class="col text-end">
-            <a href="/summary/employee" class="btn btn-info">集計</a>
-            <a href="config" class="btn btn-success">編集</a>
-
-            {{ Form::open(['url' => '/', 'files' => false, 'name' => 'prev', 'style' => 'display:inline;']) }}
-            {{ Form::hidden('viewY', date('Y', strtotime('-1 day', strtotime($earlyWeek)))) }}
-            {{ Form::hidden('viewM', date('m', strtotime('-1 day', strtotime($earlyWeek)))) }}
-            {{ Form::hidden('viewD', date('d', strtotime('-1 day', strtotime($earlyWeek)))) }}
-            {{ Form::submit('←', ['class' => 'submit btn btn-warning']) }}
-            {{ Form::close() }}
-
-            {{ Form::open(['url' => '/', 'files' => false, 'name' => 'now', 'style' => 'display:inline;']) }}
-            {{ Form::hidden('viewY', date('Y', strtotime($nowDate))) }}
-            {{ Form::hidden('viewM', date('m', strtotime($nowDate))) }}
-            {{ Form::hidden('viewD', date('d', strtotime($nowDate))) }}
-            {{ Form::submit('今週', ['class' => 'submit btn btn-warning']) }}
-            {{ Form::close() }}
-
-            {{ Form::open(['url' => '/', 'files' => false, 'name' => 'next', 'style' => 'display:inline;']) }}
-            {{ Form::hidden('viewY', date('Y', strtotime('+1 day', strtotime($weekend)))) }}
-            {{ Form::hidden('viewM', date('m', strtotime('+1 day', strtotime($weekend)))) }}
-            {{ Form::hidden('viewD', date('d', strtotime('+1 day', strtotime($weekend)))) }}
-            {{ Form::submit('→', ['class' => 'submit btn btn-warning']) }}
-            {{ Form::close() }}
-        </div>
-    </div>
+@extends('common.format')
+@section('title', '出勤簿')
+@include('common.header')
+@section('content')
     {{ Form::open(['url' => '/edit', 'files' => false, 'name' => 'attendance']) }}
     <table class="table table-striped table-bordered text-nowrap">
         <thead class="table-dark table-bordered" style="background-color:#343a40">
@@ -187,4 +145,4 @@
         </tbody>
     </table>
     {{ Form::close() }}
-</div>
+    @endsection

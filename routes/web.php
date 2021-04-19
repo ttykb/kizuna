@@ -21,9 +21,10 @@ use App\Http\Controllers\ConfigController;
 //     return view('welcome');
 // });
 
-Route::get('/', [AttendanceController::class, 'index'])->name('.');
-Route::post('/', [AttendanceController::class, 'index'])->name('.');
-Route::post('/edit', [AttendanceController::class, 'edit'])->name('edit');
+Route::get('/', [AttendanceController::class, 'index'])->name('attendance');
+Route::post('/', [AttendanceController::class, 'index'])->name('attendance');
+Route::post('/edit', [AttendanceController::class, 'edit'])->name('attendance.edit');
+
 Route::get('/summary/employee', [SummaryController::class, 'index'])->name('summary.employee');
 Route::post('/summary/employee', [SummaryController::class, 'index'])->name('summary.employee');
 Route::get('/summary/daily', [SummaryController::class, 'index'])->name('summary.daily');
