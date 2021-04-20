@@ -9,6 +9,7 @@ use App\Models\Attendance;
 use App\Models\Employee;
 use App\Models\Worktype;
 use App\Models\Workplace;
+use App\Models\Pickup;
 
 class AttendanceController extends Controller
 {
@@ -71,6 +72,8 @@ class AttendanceController extends Controller
         $worktypeList =  Worktype::selectList();
         // 現場名一覧
         $workplaceList =  Workplace::selectList();
+        // 送迎金額一覧
+        $pickupList = Pickup::selectList();
 
         // 勤怠記録
         $tempAttendances = Attendance::whereBetween('base_date', [$earlyWeek, $weekend])->OrderBaseDateAsc()->OrderEmployeeIdAsc()->get();
@@ -82,8 +85,9 @@ class AttendanceController extends Controller
                         'id' => $tempAttendance->id,
                         'worktype' => $tempAttendance->worktype_id,
                         'workplace' => $tempAttendance->workplace_id,
-                        'is_pickup' => $tempAttendance->is_pickup,
+                        'pickup' => $tempAttendance->pickup,
                         'overtime' => $tempAttendance->overtime,
+                        'allowance' => $tempAttendance->allowance,
                         'is_daily_report' => $tempAttendance->is_daily_report,
                         'is_daily_payment' => $tempAttendance->is_daily_payment,
                         'note' => $tempAttendance->note
@@ -95,7 +99,7 @@ class AttendanceController extends Controller
             }
         }
 
-        return view('index', compact('employees', 'attendances', 'nowDate', 'date', 'viewY', 'viewM', 'earlyWeek', 'weekend', 'dayList', 'worktypeList', 'workplaceList'));
+        return view('index', compact('employees', 'attendances', 'nowDate', 'date', 'viewY', 'viewM', 'earlyWeek', 'weekend', 'dayList', 'worktypeList', 'workplaceList', 'pickupList'));
     }
 
     /**
@@ -163,12 +167,13 @@ class AttendanceController extends Controller
                             $attendance->id = $subValue['id'];
                             $attendance->worktype_id = $subValue['worktype'];
                             $attendance->workplace_id = $subValue['workplace'];
-                            $attendance->is_pickup = $subValue['is_pickup'];
+                            $attendance->pickup = $subValue['pickup'];
                             if (is_null($subValue['overtime'])) {
                                 $attendance->overtime = null;
                             } else {
                                 $attendance->overtime = date('H:i:00', strtotime($subValue['overtime']));
                             }
+                            $attendance->allowance = $subValue['allowance'];
                             $attendance->is_daily_report = $subValue['is_daily_report'];
                             $attendance->is_daily_payment = $subValue['is_daily_payment'];
                             $attendance->note = $subValue['note'];
@@ -179,8 +184,9 @@ class AttendanceController extends Controller
                             $attendance->base_date = $subKey;
                             $attendance->worktype_id = $subValue['worktype'];
                             $attendance->workplace_id = $subValue['workplace'];
-                            $attendance->is_pickup = $subValue['is_pickup'];
+                            $attendance->pickup = $subValue['pickup'];
                             $attendance->overtime = $subValue['overtime'];
+                            $attendance->allowance = $subValue['allowance'];
                             $attendance->is_daily_report = $subValue['is_daily_report'];
                             $attendance->is_daily_payment = $subValue['is_daily_payment'];
                             $attendance->note = $subValue['note'];

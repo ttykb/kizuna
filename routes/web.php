@@ -30,6 +30,10 @@ Route::post('/summary/employee', [SummaryController::class, 'index'])->name('sum
 Route::get('/summary/daily', [SummaryController::class, 'index'])->name('summary.daily');
 Route::post('/summary/daily', [SummaryController::class, 'index'])->name('summary.daily');
 Route::get('/summary', function() {return redirect('/summary/employee');})->name('summary');
+
+Route::get('/salary', [SalaryController::class, 'index'])->name('salary');
+Route::post('/salary', [SalaryController::class, 'index'])->name('salary');
+
 Route::get('/config', [ConfigController::class, 'index'])->name('config');
 Route::post('/config', [ConfigController::class, 'show'])->name('config');
 Route::get('/config/edit', function() {return redirect('/config');})->name('config.edit');

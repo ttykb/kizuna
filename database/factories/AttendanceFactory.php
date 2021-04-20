@@ -52,7 +52,7 @@ class AttendanceFactory extends Factory
             'employee_id' => $this->faker->numberBetween(1,31),
             'worktype_id' => $this->faker->numberBetween(1,4),
             'workplace_id' => $this->faker->numberBetween(1,10),
-            'is_pickup' => $this->faker->boolean,
+            'pickup' => $this->faker->numberBetween(1,2),
             'overtime' => $this->faker->time,
             'is_daily_report' => $this->faker->boolean,
             'is_daily_payment' => $this->faker->boolean,

@@ -8,7 +8,7 @@
 </head>
 
 <body>
-    <div class="container-xxxl">
+    <div class="container-xxxl g-0">
         @yield('header')
         @yield('content')
     </div>

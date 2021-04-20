@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             WorkplaceSeeder::class,
             WorktypeSeeder::class,
             EmployeeSeeder::class,
+            PickupSeeder::class,
             AttendanceSeeder::class
         ]);
     }
