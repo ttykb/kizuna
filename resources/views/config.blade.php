@@ -1,6 +1,7 @@
-<link href="{{ asset('css/app.css') }}" rel="stylesheet">
-
-<div class="container">
+@extends('common.format')
+@section('title', '集計／従業員別')
+    @include('common.header')
+@section('content')
     <div class="card mt-3">
         <div class="card-header">追加</div>
         <div class="card-body">
@@ -103,4 +104,4 @@
             {{ Form::close() }}
         </div>
     </div>
-</div>
+@endsection

@@ -1,49 +1,7 @@
-<link href="{{ asset('css/app.css') }}" rel="stylesheet">
-
-<div class="container-xxxl">
-    <div class="row g-0 fixed01 background-color: #f8fafc">
-        <div class="col-3">
-            {{ Form::open(['url' => '/', 'files' => false, 'class' => 'm-0']) }}
-            {{ Form::hidden('nowDate', $nowDate) }}
-            <div class="input-group">
-                {{ Form::select('viewY', App\Models\BaseDate::selectYearList($nowDate), $viewY, ['id' => 'viewY', 'class' => 'form-select']) }}
-                <label class="input-group-text" for="viewY">年</label>
-                {{ Form::select('viewM', App\Models\BaseDate::selectMonthList(), $viewM, ['id' => 'viewM', 'class' => 'form-select']) }}
-                <label class="input-group-text" for="viewM">月</label>
-                {{ Form::hidden('viewD', '01') }}
-                {{ Form::submit('表示', ['class' => 'submit btn btn-outline-secondary']) }}
-            </div>
-            {{ Form::close() }}
-        </div>
-        <div class="col text-center">
-            <a href="javascript:attendance.submit()" class="btn btn-outline-danger">入力内容を保存する</a>
-        </div>
-        <div class="col text-end">
-            <a href="/summary/employee" class="btn btn-info">集計</a>
-            <a href="config" class="btn btn-success">編集</a>
-
-            {{ Form::open(['url' => '/', 'files' => false, 'name' => 'prev', 'style' => 'display:inline;']) }}
-            {{ Form::hidden('viewY', date('Y', strtotime('-1 day', strtotime($earlyWeek)))) }}
-            {{ Form::hidden('viewM', date('m', strtotime('-1 day', strtotime($earlyWeek)))) }}
-            {{ Form::hidden('viewD', date('d', strtotime('-1 day', strtotime($earlyWeek)))) }}
-            {{ Form::submit('←', ['class' => 'submit btn btn-warning']) }}
-            {{ Form::close() }}
-
-            {{ Form::open(['url' => '/', 'files' => false, 'name' => 'now', 'style' => 'display:inline;']) }}
-            {{ Form::hidden('viewY', date('Y', strtotime($nowDate))) }}
-            {{ Form::hidden('viewM', date('m', strtotime($nowDate))) }}
-            {{ Form::hidden('viewD', date('d', strtotime($nowDate))) }}
-            {{ Form::submit('今週', ['class' => 'submit btn btn-warning']) }}
-            {{ Form::close() }}
-
-            {{ Form::open(['url' => '/', 'files' => false, 'name' => 'next', 'style' => 'display:inline;']) }}
-            {{ Form::hidden('viewY', date('Y', strtotime('+1 day', strtotime($weekend)))) }}
-            {{ Form::hidden('viewM', date('m', strtotime('+1 day', strtotime($weekend)))) }}
-            {{ Form::hidden('viewD', date('d', strtotime('+1 day', strtotime($weekend)))) }}
-            {{ Form::submit('→', ['class' => 'submit btn btn-warning']) }}
-            {{ Form::close() }}
-        </div>
-    </div>
+@extends('common.format')
+@section('title', '出勤簿')
+    @include('common.header')
+@section('content')
     {{ Form::open(['url' => '/edit', 'files' => false, 'name' => 'attendance']) }}
     <table class="table table-striped table-bordered text-nowrap">
         <thead class="table-dark table-bordered" style="background-color:#343a40">
@@ -72,11 +30,8 @@
                                             <td style="background-color: rgb(242, 220, 219);">
                                                 現場
                                             </td>
-                                            <td>
-                                                {{ Form::select($employee->id . '[' . $base_date . ']' . '[workplace]', $workplaceList, $attendances[$employee->id][$base_date]['workplace'], ['style' => 'width:110px;']) }}
-                                            </td>
-                                            <td style="background-color: rgb(221, 217, 196);">
-                                                シフト
+                                            <td colspan="3">
+                                                {{ Form::select($employee->id . '[' . $base_date . ']' . '[workplace]', $workplaceList, $attendances[$employee->id][$base_date]['workplace'], ['style' => 'width:190px;']) }}
                                             </td>
                                         </tr>
                                         <tr>
@@ -84,11 +39,13 @@
                                                 送迎
                                             </td>
                                             <td>
-                                                {{ Form::select($employee->id . '[' . $base_date . ']' . '[is_pickup]', App\Models\Pickup::selectList(), $attendances[$employee->id][$base_date]['is_pickup']) }}
+                                                {{ Form::select($employee->id . '[' . $base_date . ']' . '[pickup]', $pickupList, $attendances[$employee->id][$base_date]['pickup'], ['style' => 'width:70px;']) }}
+                                            </td>
+                                            <td style="background-color: rgb(221, 217, 196);">
+                                                シフト
                                             </td>
                                             <td>
-                                                {{ Form::select($employee->id . '[' . $base_date . ']' . '[worktype]', $worktypeList, $attendances[$employee->id][$base_date]['worktype']) }}
-
+                                                {{ Form::select($employee->id . '[' . $base_date . ']' . '[worktype]', $worktypeList, $attendances[$employee->id][$base_date]['worktype'], ['style' => 'width:70px;']) }}
                                             </td>
                                         </tr>
                                         <tr>
@@ -97,13 +54,20 @@
                                             </td>
                                             <td>
                                                 @if (is_null($attendances[$employee->id][$base_date]['overtime']))
-                                                    {{ Form::text($employee->id . '[' . $base_date . ']' . '[overtime]', null, ['class' => 'form-control', 'placeholder' => '--:--', 'style' => 'width:110px;']) }}
+                                                    {{ Form::text($employee->id . '[' . $base_date . ']' . '[overtime]', null, ['class' => 'form-control', 'placeholder' => '--:--', 'style' => 'width:70px;']) }}
                                                 @else
-                                                    {{ Form::text($employee->id . '[' . $base_date . ']' . '[overtime]', date('G:i', strtotime($attendances[$employee->id][$base_date]['overtime'])), ['class' => 'form-control', 'placeholder' => '--:--', 'style' => 'width:110px;']) }}
+                                                    {{ Form::text($employee->id . '[' . $base_date . ']' . '[overtime]', date('G:i', strtotime($attendances[$employee->id][$base_date]['overtime'])), ['class' => 'form-control', 'placeholder' => '--:--', 'style' => 'width:70px;']) }}
                                                 @endif
                                             </td>
-                                            <td style="background-color: rgb(228, 223, 236);">
-                                                日払い
+                                            <td style="background-color: rgb(218, 238, 243);">
+                                                手当
+                                            </td>
+                                            <td>
+                                                @if (is_null($attendances[$employee->id][$base_date]['allowance']))
+                                                    {{ Form::text($employee->id . '[' . $base_date . ']' . '[allowance]', null, ['class' => 'form-control', 'id' => 'allowance', 'style' => 'width:70px;']) }}
+                                                @else
+                                                    {{ Form::text($employee->id . '[' . $base_date . ']' . '[allowance]', $attendances[$employee->id][$base_date]['allowance'], ['class' => 'form-control', 'id' => 'allowance', 'style' => 'width:70px;']) }}
+                                                @endif
                                             </td>
                                         </tr>
                                         <tr>
@@ -114,13 +78,16 @@
                                                 {{ Form::hidden($employee->id . '[' . $base_date . ']' . '[is_daily_report]', null) }}
                                                 {{ Form::checkbox($employee->id . '[' . $base_date . ']' . '[is_daily_report]', '1', $attendances[$employee->id][$base_date]['is_daily_report']) }}
                                             </td>
+                                            <td style="background-color: rgb(228, 223, 236);">
+                                                日払い
+                                            </td>
                                             <td class="text-center">
                                                 {{ Form::hidden($employee->id . '[' . $base_date . ']' . '[is_daily_payment]', null) }}
                                                 {{ Form::checkbox($employee->id . '[' . $base_date . ']' . '[is_daily_payment]', '1', $attendances[$employee->id][$base_date]['is_daily_payment']) }}
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td colspan="3">
+                                            <td colspan="4">
                                                 {{ Form::text($employee->id . '[' . $base_date . ']' . '[note]', $attendances[$employee->id][$base_date]['note'], ['class' => 'form-control', 'id' => 'note', 'placeholder' => '備考']) }}
                                             </td>
                                         </tr>
@@ -130,11 +97,8 @@
                                             <td style="background-color: rgb(242, 220, 219);">
                                                 現場
                                             </td>
-                                            <td>
-                                                {{ Form::select($employee->id . '[' . $base_date . ']' . '[workplace]', $workplaceList, null, ['style' => 'width:110px;']) }}
-                                            </td>
-                                            <td style="background-color: rgb(221, 217, 196);">
-                                                シフト
+                                            <td colspan="3">
+                                                {{ Form::select($employee->id . '[' . $base_date . ']' . '[workplace]', $workplaceList, null, ['style' => 'width:190px;']) }}
                                             </td>
                                         </tr>
                                         <tr>
@@ -142,10 +106,13 @@
                                                 送迎
                                             </td>
                                             <td>
-                                                {{ Form::select($employee->id . '[' . $base_date . ']' . '[is_pickup]', App\Models\Pickup::selectList()) }}
+                                                {{ Form::select($employee->id . '[' . $base_date . ']' . '[pickup]', $pickupList, null, ['style' => 'width:70px;']) }}
+                                            </td>
+                                            <td style="background-color: rgb(221, 217, 196);">
+                                                シフト
                                             </td>
                                             <td>
-                                                {{ Form::select($employee->id . '[' . $base_date . ']' . '[worktype]', $worktypeList) }}
+                                                {{ Form::select($employee->id . '[' . $base_date . ']' . '[worktype]', $worktypeList, null, ['style' => 'width:70px;']) }}
                                             </td>
                                         </tr>
                                         <tr>
@@ -153,10 +120,13 @@
                                                 残業
                                             </td>
                                             <td>
-                                                {{ Form::text($employee->id . '[' . $base_date . ']' . '[overtime]', null, ['class' => 'form-control', 'placeholder' => '--:--', 'style' => 'width:110px;']) }}
+                                                {{ Form::text($employee->id . '[' . $base_date . ']' . '[overtime]', null, ['class' => 'form-control', 'placeholder' => '--:--', 'style' => 'width:70px;']) }}
                                             </td>
-                                            <td style="background-color: rgb(228, 223, 236);">
-                                                日払い
+                                            <td style="background-color: rgb(218, 238, 243);">
+                                                手当
+                                            </td>
+                                            <td>
+                                                {{ Form::text($employee->id . '[' . $base_date . ']' . '[allowance]', null, ['class' => 'form-control', 'id' => 'allowance', 'style' => 'width:70px;']) }}
                                             </td>
                                         </tr>
                                         <tr>
@@ -167,13 +137,16 @@
                                                 {{ Form::hidden($employee->id . '[' . $base_date . ']' . '[is_daily_report]', null) }}
                                                 {{ Form::checkbox($employee->id . '[' . $base_date . ']' . '[is_daily_report]', '1') }}
                                             </td>
+                                            <td style="background-color: rgb(228, 223, 236);">
+                                                日払い
+                                            </td>
                                             <td class="text-center">
                                                 {{ Form::hidden($employee->id . '[' . $base_date . ']' . '[is_daily_payment]', null) }}
                                                 {{ Form::checkbox($employee->id . '[' . $base_date . ']' . '[is_daily_payment]', '1') }}
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td colspan="3">
+                                            <td colspan="4">
                                                 {{ Form::text($employee->id . '[' . $base_date . ']' . '[note]', null, ['class' => 'form-control', 'placeholder' => '備考']) }}
                                             </td>
                                         </tr>
@@ -187,4 +160,4 @@
         </tbody>
     </table>
     {{ Form::close() }}
-</div>
+@endsection

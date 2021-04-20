@@ -19,7 +19,8 @@ class CreateAttendancesTable extends Migration
             $table->bigInteger('employee_id')->unsigned()->comment('従業員ID');
             $table->bigInteger('worktype_id')->unsigned()->comment('勤務種別')->nullable();
             $table->bigInteger('workplace_id')->unsigned()->comment('勤務場所')->nullable();
-            $table->boolean('is_pickup')->comment('送迎')->nullable();
+            $table->integer('allowance')->comment('手当')->nullable();
+            $table->boolean('pickup')->comment('送迎')->nullable();
             $table->time('overtime', $precision = 0)->comment('残業時間')->nullable();
             $table->boolean('is_daily_report')->comment('日報')->nullable();
             $table->boolean('is_daily_payment')->comment('日払い')->nullable();
