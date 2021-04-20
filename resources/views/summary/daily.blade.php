@@ -61,7 +61,7 @@
                     </td>
                     <td>
                         @if (array_key_exists($day, $summaryArray))
-                            {{ $summaryArray[$day]['is_pickup'] }}
+                            {{ $summaryArray[$day]['pickup'] }}
                         @else
                             0
                         @endif
@@ -102,7 +102,7 @@
                 </td>
                 <td>
                     @if (array_key_exists('total', $summaryArray))
-                        {{ $summaryArray['total']['is_pickup'] }}
+                        {{ $summaryArray['total']['pickup'] }}
                     @else
                         0
                     @endif
