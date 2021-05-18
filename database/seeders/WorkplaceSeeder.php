@@ -24,7 +24,9 @@ class WorkplaceSeeder extends Seeder
             "第一健康江島",
             "匠",
             "川重産業",
-            "東栄建設"
+            "東栄建設",
+            "小島建設",
+            "スタック"
         ];
 
         foreach($Workplaces as $Workplace) {
