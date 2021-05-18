@@ -5,6 +5,13 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
+define('worktypes', [
+    "日勤",
+    "夜勤",
+    "講習",
+    "全休",
+]);
+
 class WorktypeSeeder extends Seeder
 {
     /**
@@ -14,14 +21,7 @@ class WorktypeSeeder extends Seeder
      */
     public function run()
     {
-        $Worktypes = [
-            "日勤",
-            "夜勤",
-            "講習",
-            "全休",
-        ];
-
-        foreach($Worktypes as $Worktype) {
+        foreach(worktypes as $Worktype) {
             DB::table('worktypes')->insert([
                 'name' => $Worktype,
                 'created_at' => date('Y-m-d H:i:s')

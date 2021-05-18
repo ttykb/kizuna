@@ -91,7 +91,7 @@ class AttendanceController extends Controller
                         'id' => $tempAttendance->id,
                         'worktype' => $tempAttendance->worktype_id,
                         'workplace' => $tempAttendance->workplace_id,
-                        'pickup' => $tempAttendance->pickup,
+                        'pickup' => $tempAttendance->pickup_id,
                         'overtime' => $tempAttendance->overtime,
                         'allowance' => $tempAttendance->allowance,
                         'is_daily_report' => $tempAttendance->is_daily_report,
@@ -173,7 +173,7 @@ class AttendanceController extends Controller
                             $attendance->id = $subValue['id'];
                             $attendance->worktype_id = $subValue['worktype'];
                             $attendance->workplace_id = $subValue['workplace'];
-                            $attendance->pickup = $subValue['pickup'];
+                            $attendance->pickup_id = $subValue['pickup'];
                             if (is_null($subValue['overtime'])) {
                                 $attendance->overtime = null;
                             } else {
@@ -190,7 +190,7 @@ class AttendanceController extends Controller
                             $attendance->base_date = $subKey;
                             $attendance->worktype_id = $subValue['worktype'];
                             $attendance->workplace_id = $subValue['workplace'];
-                            $attendance->pickup = $subValue['pickup'];
+                            $attendance->pickup_id = $subValue['pickup'];
                             $attendance->overtime = $subValue['overtime'];
                             $attendance->allowance = $subValue['allowance'];
                             $attendance->is_daily_report = $subValue['is_daily_report'];

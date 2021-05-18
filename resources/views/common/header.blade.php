@@ -1,18 +1,20 @@
 @section('header')
-    @if (Route::is('attendance') || Route::is('summary.*'))
+    @if (Route::is('summary.*'))
+        <div class="row g-0 fixed-menu" style="background-color: #f8fafc; height: 37px; overflow: hidden;">
+        @else
+            <div class="row g-0 fixed-menu" style="background-color: #f8fafc">
+    @endif
+    <div class="col-3">
         @if (Route::is('attendance'))
-            <div class="row g-0 fixed01" style="background-color: #f8fafc">
-            @elseif (Route::is('summary.*'))
-                <div class="row g-0 fixed01" style="background-color: #f8fafc; height: 37px; overflow: hidden;">
+            {{ Form::open(['url' => '/', 'files' => false, 'class' => 'm-0']) }}
+        @elseif (Route::is('summary.daily'))
+            {{ Form::open(['url' => '/summary/daily', 'files' => false, 'class' => 'm-0']) }}
+        @elseif (Route::is('summary.employee'))
+            {{ Form::open(['url' => '/summary/employee', 'files' => false, 'class' => 'm-0']) }}
+        @elseif (Route::is('salary'))
+            {{ Form::open(['url' => 'salary', 'files' => false, 'class' => 'm-0']) }}
         @endif
-        <div class="col-3">
-            @if (Route::is('attendance'))
-                {{ Form::open(['url' => '/', 'files' => false, 'class' => 'm-0']) }}
-            @elseif (Route::is('summary.daily'))
-                {{ Form::open(['url' => '/summary/daily', 'files' => false, 'class' => 'm-0']) }}
-            @elseif (Route::is('summary.employee'))
-                {{ Form::open(['url' => '/summary/employee', 'files' => false, 'class' => 'm-0']) }}
-            @endif
+        @if (!Route::is('config') && !Route::is('config.*'))
             {{ Form::hidden('nowDate', $nowDate) }}
             <div class="input-group">
                 {{ Form::select('viewY', App\Models\BaseDate::selectYearList($nowDate), $viewY, ['id' => 'viewY', 'class' => 'form-select']) }}
@@ -23,8 +25,10 @@
                 {{ Form::submit('表示', ['class' => 'submit btn btn-outline-secondary']) }}
             </div>
             {{ Form::close() }}
-        </div>
+        @endif
+    </div>
 
+    @if (Route::is('attendance') || Route::is('summary.*'))
         <div class="col text-center">
             @if (Route::is('attendance'))
                 <a href="javascript:attendance.submit()" class="btn btn-outline-danger">入力内容を保存する</a>
@@ -54,6 +58,9 @@
         @endif
         @if (!Route::is('summary.*'))
             <a href="/summary/employee" class="btn btn-info">集計</a>
+        @endif
+        @if (!Route::is('salary'))
+            <a href="/salary" class="btn btn-info">給与計算</a>
         @endif
         @if (!Route::is('config'))
             <a href="/config" class="btn btn-success">編集</a>
@@ -116,7 +123,7 @@
             {{ Form::close() }}
         @endif
     </div>
-    @if (Route::is('attendance') || Route::is('summary.*'))
+    @if (Route::is('attendance') || Route::is('summary.*') || Route::is('salary'))
         </div>
     @endif
 @endsection

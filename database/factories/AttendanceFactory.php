@@ -50,9 +50,10 @@ class AttendanceFactory extends Factory
         return [
             'base_date' => $this->faker->dateTimeBetween($startDate = $biginningOfTheMonth, $endDate = $endOfTheMonth, $timezone = date_default_timezone_get()),
             'employee_id' => $this->faker->numberBetween(1,31),
-            'worktype_id' => $this->faker->numberBetween(1,4),
+            'worktype_id' => $this->faker->numberBetween(1,3),
             'workplace_id' => $this->faker->numberBetween(1,10),
-            'pickup' => $this->faker->numberBetween(1,2),
+            'allowance' => $this->faker->numberBetween(0,5000),
+            'pickup_id' => $this->faker->numberBetween(1,2),
             'overtime' => $this->faker->time,
             'is_daily_report' => $this->faker->boolean,
             'is_daily_payment' => $this->faker->boolean,

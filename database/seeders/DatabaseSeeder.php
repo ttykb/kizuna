@@ -18,6 +18,8 @@ class DatabaseSeeder extends Seeder
             WorktypeSeeder::class,
             EmployeeSeeder::class,
             PickupSeeder::class,
+            DailySalarySeeder::class,
+            OvertimeFeeSeeder::class,
             AttendanceSeeder::class
         ]);
     }
