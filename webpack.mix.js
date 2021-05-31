@@ -12,6 +12,7 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
+    .js('resources/js/fadeout.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css')
     .copyDirectory('node_modules/bootstrap-icons', 'public/img/bootstrap-icons')
     .sourceMaps();

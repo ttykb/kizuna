@@ -37,5 +37,4 @@ Route::post('/salary', [SalaryController::class, 'index'])->name('salary');
 
 Route::get('/config', [ConfigController::class, 'index'])->name('config');
 Route::post('/config', [ConfigController::class, 'show'])->name('config');
-Route::get('/config/edit', function() {return redirect('/config');})->name('config.edit');
 Route::post('/config/edit', [ConfigController::class, 'edit'])->name('config.edit');
