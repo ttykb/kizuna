@@ -5,6 +5,12 @@
     <meta charset="UTF-8">
     <title>@yield('title')｜Kizuna Attendance System</title>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <script>
+        function displayPrint() {
+            window.print();
+        }
+
+    </script>
     @yield('head')
 </head>
 
