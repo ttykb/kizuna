@@ -52,7 +52,7 @@ class SummaryController extends Controller
         $totalWorkplaceCount = Attendance::select(Attendance::raw('count(workplace_id) as cnt_workplace_id'))->whereBetween('base_date', [$biginningOfTheMonth, $endOfTheMonth])->get();
         $totalIsDailyReport = Attendance::select(Attendance::raw('count(is_daily_report) as cnt_is_daily_report'))->whereBetween('base_date', [$biginningOfTheMonth, $endOfTheMonth])->get();
         $totalOvertimeSummary = Attendance::select(Attendance::raw('sec_to_time(sum(time_to_sec(overtime))) as sum_overtime'))->whereBetween('base_date', [$biginningOfTheMonth, $endOfTheMonth])->get();
-        $totalIsPickupSummary = Attendance::select(Attendance::raw('count(pickup) as cnt_pickup'))->whereBetween('base_date', [$biginningOfTheMonth, $endOfTheMonth])->get();
+        $totalIsPickupSummary = Attendance::select(Attendance::raw('count(pickup_id) as cnt_pickup'))->whereBetween('base_date', [$biginningOfTheMonth, $endOfTheMonth])->get();
 
         foreach ($totalWorkplace as $result) {
             $summaryArray['total'][$result->workplace_id] = $result->cnt_workplace_id;
@@ -79,7 +79,7 @@ class SummaryController extends Controller
             $workplaceCountSummary = Attendance::select(Attendance::raw('employee_id, count(workplace_id) as cnt_workplace_id'))->whereBetween('base_date', [$biginningOfTheMonth, $endOfTheMonth])->groupBy(Attendance::raw('employee_id'))->orderBy(Attendance::raw('employee_id'))->get();
             $isDailyReportSummary = Attendance::select(Attendance::raw('employee_id, count(is_daily_report) as cnt_is_daily_report'))->whereBetween('base_date', [$biginningOfTheMonth, $endOfTheMonth])->groupBy(Attendance::raw('employee_id'))->orderBy(Attendance::raw('employee_id'))->get();
             $overtimeSummary = Attendance::select(Attendance::raw('employee_id, sec_to_time(sum(time_to_sec(overtime))) as sum_overtime'))->whereBetween('base_date', [$biginningOfTheMonth, $endOfTheMonth])->groupBy(Attendance::raw('employee_id'))->orderBy(Attendance::raw('employee_id'))->get();
-            $isPickupSummary = Attendance::select(Attendance::raw('employee_id, count(pickup) as cnt_pickup'))->whereBetween('base_date', [$biginningOfTheMonth, $endOfTheMonth])->groupBy(Attendance::raw('employee_id'))->orderBy(Attendance::raw('employee_id'))->get();
+            $isPickupSummary = Attendance::select(Attendance::raw('employee_id, count(pickup_id) as cnt_pickup'))->whereBetween('base_date', [$biginningOfTheMonth, $endOfTheMonth])->groupBy(Attendance::raw('employee_id'))->orderBy(Attendance::raw('employee_id'))->get();
 
             foreach ($employees as $employee) {
                 foreach ($workplaceSummary as $result) {
@@ -123,7 +123,7 @@ class SummaryController extends Controller
             $workplaceCountSummary = Attendance::select(Attendance::raw('base_date, count(workplace_id) as cnt_workplace_id'))->whereBetween('base_date', [$biginningOfTheMonth, $endOfTheMonth])->groupBy(Attendance::raw('base_date'))->orderBy(Attendance::raw('base_date'))->get();
             $isDailyReportSummary = Attendance::select(Attendance::raw('base_date, count(is_daily_report) as cnt_is_daily_report'))->whereBetween('base_date', [$biginningOfTheMonth, $endOfTheMonth])->groupBy(Attendance::raw('base_date'))->orderBy(Attendance::raw('base_date'))->get();
             $overtimeSummary = Attendance::select(Attendance::raw('base_date, sec_to_time(sum(time_to_sec(overtime))) as sum_overtime'))->whereBetween('base_date', [$biginningOfTheMonth, $endOfTheMonth])->groupBy(Attendance::raw('base_date'))->orderBy(Attendance::raw('base_date'))->get();
-            $isPickupSummary = Attendance::select(Attendance::raw('base_date, count(pickup) as cnt_pickup'))->whereBetween('base_date', [$biginningOfTheMonth, $endOfTheMonth])->groupBy(Attendance::raw('base_date'))->orderBy(Attendance::raw('base_date'))->get();
+            $isPickupSummary = Attendance::select(Attendance::raw('base_date, count(pickup_id) as cnt_pickup'))->whereBetween('base_date', [$biginningOfTheMonth, $endOfTheMonth])->groupBy(Attendance::raw('base_date'))->orderBy(Attendance::raw('base_date'))->get();
 
             foreach ($dayList as $day) {
                 foreach ($workplaceSummary as $result) {
