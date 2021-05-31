@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>@yield('title')｜Kizuna Attendance System</title>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    @yield('head')
 </head>
 
 <body>
@@ -12,6 +13,7 @@
         @yield('header')
         @yield('content')
     </div>
+    @yield('script')
 </body>
 
 </html>

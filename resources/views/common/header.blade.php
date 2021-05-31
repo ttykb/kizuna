@@ -14,7 +14,7 @@
         @elseif (Route::is('salary'))
             {{ Form::open(['url' => 'salary', 'files' => false, 'class' => 'm-0']) }}
         @endif
-        @if (!Route::is('config') && !Route::is('config.*'))
+        @if (!Route::is('config'))
             {{ Form::hidden('nowDate', $nowDate) }}
             <div class="input-group">
                 {{ Form::select('viewY', App\Models\BaseDate::selectYearList($nowDate), $viewY, ['id' => 'viewY', 'class' => 'form-select']) }}
