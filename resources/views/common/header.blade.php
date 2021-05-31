@@ -122,8 +122,14 @@
             {{ Form::submit('→', ['class' => 'submit btn btn-warning']) }}
             {{ Form::close() }}
         @endif
+        @if (!Route::is('config'))
+            <a class="p-1 btn btn-secondary" href="javascript:displayPrint();">
+                <img src="{{ asset('img/bootstrap-icons/icons/printer.svg') }}" alt="印刷" width="23" height="23"
+                    title="print">
+            </a>
+        @endif
     </div>
-    @if (Route::is('attendance') || Route::is('summary.*') || Route::is('salary'))
+    @if (!Route::is('config'))
         </div>
     @endif
 @endsection

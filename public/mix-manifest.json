@@ -1,4 +1,8 @@
 {
     "/js/app.js": "/js/app.js",
-    "/css/app.css": "/css/app.css"
+    "/css/app.css": "/css/app.css",
+    "/img/bootstrap-icons/bootstrap-icons.svg": "/img/bootstrap-icons/bootstrap-icons.svg",
+    "/img/bootstrap-icons/LICENSE.md": "/img/bootstrap-icons/LICENSE.md",
+    "/img/bootstrap-icons/package.json": "/img/bootstrap-icons/package.json",
+    "/img/bootstrap-icons/README.md": "/img/bootstrap-icons/README.md"
 }
