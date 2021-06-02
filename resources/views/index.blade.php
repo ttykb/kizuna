@@ -6,9 +6,9 @@
     <table class="table table-striped table-bordered text-nowrap">
         <thead class="table-dark table-bordered" style="background-color:#343a40">
             <tr>
-                <th scope="col" class="align-top fixed02">氏名</th>
+                <th scope="col" class="align-middle fixed-column">氏名</th>
                 @foreach ($dayList as $base_date)
-                    <th scope="col" class="fixed02">
+                    <th scope="col" class="align-middle fixed-column">
                         {{ date('m/d', strtotime($base_date)) . '(' . App\Models\DayOfTheWeek::viewDayOfTheWeek($base_date) . ')' }}
                     </th>
                 @endforeach
