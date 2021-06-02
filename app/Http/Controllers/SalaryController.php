@@ -89,7 +89,7 @@ class SalaryController extends Controller
 
         // （従業員別）出勤回数×日当金額（講習のみ）
         $shortCourseCount = DB::table('attendances')
-            ->select(DB::raw('attendances.employee_id, attendances.base_date, count(worktype_id) * (price / 2) as sum_daily_salaly'))
+            ->select(DB::raw('attendances.employee_id, attendances.base_date, count(worktype_id) * (price / 2) as sum_short_course'))
             ->joinSub($dailySalaries, 'daily_salaries', function ($join) {
                 $join->on('attendances.employee_id', '=', 'daily_salaries.employee_id');
             })->where('worktype_id', [3])
@@ -188,8 +188,26 @@ class SalaryController extends Controller
             $salaryArray[$result->employee_id]['daily_salaly'] = $result->sum_daily_salaly;
         }
         foreach ($shortCourseCount as $result) {
-            $salaryArray[$result->employee_id]['daily_salaly'] = $result->sum_daily_salaly;
+            $salaryArray[$result->employee_id]['short_course'] = $result->sum_short_course;
         }
+
+        foreach ($employees as $employee) {
+            if (
+                array_key_exists($employee->id, $salaryArray)
+                && array_key_exists('daily_salaly', $salaryArray[$employee->id])
+                && array_key_exists('short_course', $salaryArray[$employee->id])
+            ) {
+                $salaryArray[$employee->id]['daily_salaly'] = $salaryArray[$employee->id]['daily_salaly'] + $salaryArray[$employee->id]['short_course'];
+                unset($salaryArray[$employee->id]['short_course']);
+            } else if (
+                array_key_exists($employee->id, $salaryArray)
+                && array_key_exists('short_course', $salaryArray[$employee->id])
+            ) {
+                $salaryArray[$employee->id]['daily_salaly'] = $salaryArray[$employee->id]['short_course'];
+                unset($salaryArray[$employee->id]['short_course']);
+            }
+        }
+
         foreach ($overtimeSum as $result) {
             $salaryArray[$result->employee_id]['overtime'] = $result->sum_overtime;
         }
