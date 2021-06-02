@@ -2,25 +2,25 @@
 @section('title', '集計／日計')
 @include('common.header')
 @section('content')
-    <table class="table table-striped table-bordered text-nowrap">
+    <table class="table table-relative table-striped table-bordered text-nowrap">
         <thead class="table-dark table-bordered" style="background-color:#343a40">
             <tr>
-                <th scope="col" class="align-top fixed02">日付</th>
+                <th scope="col" class="align-middle fixed-column">日付</th>
                 @foreach ($workplaceList as $workplace)
-                    <th scope="col" class="fixed02">
+                    <th scope="col" class="align-middle fixed-column">
                         {{ $workplace }}
                     </th>
                 @endforeach
-                <th scope="col" class="fixed02">
+                <th scope="col" class="align-middle fixed-column">
                     合計
                 </th>
-                <th scope="col" class="fixed02">
+                <th scope="col" class="align-middle fixed-column">
                     日報数
                 </th>
-                <th scope="col" class="fixed02">
+                <th scope="col" class="align-middle fixed-column">
                     残業
                 </th>
-                <th scope="col" class="fixed02">
+                <th scope="col" class="align-middle fixed-column">
                     送迎
                 </th>
             </tr>
