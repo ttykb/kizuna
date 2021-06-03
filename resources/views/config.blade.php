@@ -9,7 +9,6 @@
 @section('content')
     @if (session('msg'))
         <script>
-            console.log('msg');
             $(function() {
                 toastr.success('{{ session('msg') }}');
             });
