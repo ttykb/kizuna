@@ -14,6 +14,16 @@ class DailySalary extends Model
         return $query->where('id', $id);
     }
 
+    public function scopeEmployeeIdAt($query, $id)
+    {
+        return $query->where('employee_id', $id);
+    }
+
+    public function scopeAppStartDateAt($query, $date)
+    {
+        return $query->where('app_start_date', $date);
+    }
+
     public function scopeEmployeeIdMax($query)
     {
         return $query->max('employee_id');
