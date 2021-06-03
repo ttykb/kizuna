@@ -193,8 +193,8 @@ class ConfigController extends Controller
                         $employee->save();
                         break;
                     case '2':
-                        $appStartDate = $request->year . '-' . $request->month . '-01';
-                        $dailySalary = new dailySalary();
+                        $appStartDate = $request->year . '-' . sprintf('%02d', $request->month) . '-01';
+                        $dailySalary = dailySalary::EmployeeIdAt($request->targetId)->AppStartDateAt($appStartDate)->first();
                         $dailySalary->employee_id = $request->targetId;
                         $dailySalary->price = $request->price;
                         $dailySalary->app_start_date = $appStartDate;
@@ -202,7 +202,7 @@ class ConfigController extends Controller
                         break;
                     case '3':
                         $appStartDate = $request->year . '-' . $request->month . '-01';
-                        $overtimeFee = new overtimeFee();
+                        $overtimeFee = OvertimeFee::EmployeeIdAt($request->targetId)->AppStartDateAt($appStartDate)->first();
                         $overtimeFee->employee_id = $request->targetId;
                         $overtimeFee->price = $request->price;
                         $overtimeFee->app_start_date = $appStartDate;
