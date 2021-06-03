@@ -105,6 +105,7 @@ class AttendanceController extends Controller
             }
         }
 
+        session()->keep('msg');
         return view('index', compact('employees', 'attendances', 'nowDate', 'date', 'viewY', 'viewM', 'earlyWeek', 'weekend', 'dayList', 'worktypeList', 'workplaceList', 'pickupList'));
     }
 
@@ -150,6 +151,7 @@ class AttendanceController extends Controller
     {
         // 更新処理
         $this->update($request);
+        session()->flash('msg', '更新が完了しました');
 
         // リダイレクト処理
         return redirect('/');
@@ -167,7 +169,6 @@ class AttendanceController extends Controller
             if (is_array($value)) {
                 foreach ($value as $subKey => $subValue) {
                     if (!empty(array_filter($subValue))) {
-                        var_dump($subValue);
                         if (!empty($subValue['id'])) {
                             $attendance = Attendance::IdAt($subValue['id'])->first();
                             $attendance->id = $subValue['id'];

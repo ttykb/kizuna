@@ -1,7 +1,20 @@
 @extends('common.format')
 @section('title', '出勤簿')
-    @include('common.header')
+@section('head')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+@endsection
+@include('common.header')
 @section('content')
+    @if (session('msg'))
+        <script>
+            $(function() {
+                toastr.success('{{ session('msg') }}');
+            });
+
+        </script>
+    @endif
     {{ Form::open(['url' => '/edit', 'files' => false, 'name' => 'attendance']) }}
     <table class="table table-striped table-bordered text-nowrap">
         <thead class="table-dark table-bordered" style="background-color:#343a40">
