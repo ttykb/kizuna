@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack:///./resources/js/fadeout.js"],"names":["$","fadeOut"],"mappings":"CAAA,WACI,aAGAA,GAAE,WACEA,EAAE,kBAAkBC,QAAQ,QALpC","file":"/js/fadeout.js","sourcesContent":["(function () {\n    'use strict';\n\n    // フラッシュメッセージのfadeout\n    $(function () {\n        $('.flash_message').fadeOut(3000);\n    });\n\n})();\n"],"sourceRoot":""}
